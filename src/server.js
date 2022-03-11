@@ -2,7 +2,7 @@ const app = require('./index');
 
 const connect = require('./configs/db');
 
-const port = 2234;
+const port = 2235;
 
 app.listen(port,async () => {
     try {
