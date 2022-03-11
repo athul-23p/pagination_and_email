@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 const express = require("express");
-
+const transporter = require('../configs/mail')
 const router = express.Router();
 
 // create user
@@ -8,6 +8,13 @@ router.post("/", async (req, res) => {
   try {
     let user = await User.create(req.body);
 
+    transporter.sendMail({
+        from:'"ABC" admin <admin@abc.com>',
+        to:req.body.email,
+        subject: `Welcome to ABC system ${req.body.first_name} ${req.body.last_name}`,
+        text:`Please confirm your email address.`
+    });
+    
     return res.status(200).send(user);
   } catch (error) {
     console.log(error);
