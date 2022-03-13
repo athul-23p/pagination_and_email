@@ -43,7 +43,17 @@ router.post("/", async (req, res) => {
 // list users
 router.get("/", async (req, res) => {
   try {
-    let users = await User.find();
+
+    const page = req.query.page || 1;
+    const pageSize = req.query.pageSize || 10;
+
+    const offset = (page-1)*pageSize;
+
+    let users = await User.find()
+      .skip(offset)
+      .limit(pageSize)
+      .lean()
+      .exec();
 
     return res.status(200).send(users);
   } catch (error) {
