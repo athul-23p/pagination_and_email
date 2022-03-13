@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
       .populate({path:'userId',select:{email:1 ,_id:0}})
       .lean()
       .exec();
-    console.log(admins);
+    // console.log(admins);
 
     admins.forEach((el)=>{
        transporter.sendMail({
